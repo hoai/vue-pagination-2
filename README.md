@@ -1,4 +1,4 @@
-# Vue Pagination 2
+# Vue Pagination Main
 
 > Breaking change on version 1.5.0: Due to a growing number of options, many of the optional props moved into a dedicated `options` object
 
@@ -28,7 +28,7 @@ Simple, generic and non-intrusive pagination component for Vue.js version 2.
 
 ## NPM
 
-    npm install vue-pagination-2
+    npm install vue-pagination-main
 
 import the script:
 
