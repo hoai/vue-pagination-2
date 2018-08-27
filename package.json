@@ -1,7 +1,7 @@
 {
   "name": "vue-pagination-main",
   "description": "Extend Vue.js 2 pagination component",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "keywords": [
     "pagination",
     "vuejs2",
@@ -17,6 +17,7 @@
     "index.js"
   ],
   "dependencies": {
+    "babel": "^6.23.0",
     "babel-plugin-add-module-exports": "^0.2.1",
     "merge": "^1.2.0",
     "vue": ">=2.0.0",
@@ -29,6 +30,7 @@
     "build-dist": "webpack"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-helper-vue-jsx-merge-props": "^2.0.2",
     "babel-loader": "^7.1.5",
