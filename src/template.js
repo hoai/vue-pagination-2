@@ -75,6 +75,7 @@ module.exports = function() {
     {nextChunk}
     {lastPage}
     </ul>
+    <div class="VuePagination__dropdownPagination" v-if="{theme.dropdownPagination}">{theme.dropdownPagination}</div>
     <p v-show={parseInt(this.records)}
     class={`VuePagination__count ${theme.count}`}>{this.count}</p>
     </nav>
