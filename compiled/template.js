@@ -150,6 +150,14 @@ module.exports = function () {
             )]
           ), nextChunk, lastPage]
         ), h(
+          'div',
+          { 'class': 'VuePagination__dropdownPagination', directives: [{
+              name: 'if',
+              value: '{theme.dropdownPagination}'
+            }]
+          },
+          [theme.dropdownPagination]
+        ), h(
           'p',
           {
             directives: [{
