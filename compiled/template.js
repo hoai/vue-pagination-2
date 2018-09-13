@@ -103,6 +103,11 @@ module.exports = function () {
       ));
     }.bind(this));
 
+    var PagingLimit = h(
+      'div',
+      { 'class': theme.pagingLimit.classes.field + ' ' + theme.pagingLimit.classes.inline + ' ' + theme.pagingLimit.classes.right + ' VueTables__limit' },
+      [theme.pagingLimit.slots.beforeLimit, theme.pagingLimit.perpage, theme.pagingLimit.slots.afterLimit]
+    );
     return h(
       'div',
       { 'class': 'VuePagination ' + theme.wrapper },
@@ -110,53 +115,57 @@ module.exports = function () {
         'nav',
         { 'class': '' + theme.nav },
         [h(
-          'ul',
-          {
-            directives: [{
-              name: 'show',
-              value: this.totalPages > 1
-            }],
-
-            'class': theme.list + ' VuePagination__pagination' },
-          [firstPage, prevChunk, h(
-            'li',
-            { 'class': 'VuePagination__pagination-item ' + theme.item + ' ' + theme.prev + ' VuePagination__pagination-item-prev-page ' + this.allowedPageClass(this.page - 1) },
-            [h(
-              'a',
-              { 'class': theme.link,
-                attrs: { href: 'javascript:void(0);',
-                  disabled: !!this.allowedPageClass(this.page - 1)
-                },
-                on: {
-                  'click': this.prev.bind(this)
-                }
-              },
-              ['<']
-            )]
-          ), items, h(
-            'li',
-            { 'class': 'VuePagination__pagination-item ' + theme.item + ' ' + theme.next + ' VuePagination__pagination-item-next-page ' + this.allowedPageClass(this.page + 1) },
-            [h(
-              'a',
-              { 'class': theme.link,
-                attrs: { href: 'javascript:void(0);',
-                  disabled: !!this.allowedPageClass(this.page + 1)
-                },
-                on: {
-                  'click': this.next.bind(this)
-                }
-              },
-              ['>']
-            )]
-          ), nextChunk, lastPage]
-        ), h(
           'div',
-          { 'class': 'VuePagination__dropdownPagination', directives: [{
-              name: 'if',
-              value: '{theme.dropdownPagination}'
-            }]
-          },
-          [theme.dropdownPagination]
+          { 'class': 'VuePagination__left' },
+          [h(
+            'div',
+            { 'class': 'VuePagination__pagination_list' },
+            [h(
+              'ul',
+              {
+                directives: [{
+                  name: 'show',
+                  value: this.totalPages > 1
+                }],
+
+                'class': theme.list + ' VuePagination__pagination' },
+              [firstPage, prevChunk, h(
+                'li',
+                { 'class': 'VuePagination__pagination-item ' + theme.item + ' ' + theme.prev + ' VuePagination__pagination-item-prev-page ' + this.allowedPageClass(this.page - 1) },
+                [h(
+                  'a',
+                  { 'class': theme.link,
+                    attrs: { href: 'javascript:void(0);',
+                      disabled: !!this.allowedPageClass(this.page - 1)
+                    },
+                    on: {
+                      'click': this.prev.bind(this)
+                    }
+                  },
+                  ['<']
+                )]
+              ), items, h(
+                'li',
+                { 'class': 'VuePagination__pagination-item ' + theme.item + ' ' + theme.next + ' VuePagination__pagination-item-next-page ' + this.allowedPageClass(this.page + 1) },
+                [h(
+                  'a',
+                  { 'class': theme.link,
+                    attrs: { href: 'javascript:void(0);',
+                      disabled: !!this.allowedPageClass(this.page + 1)
+                    },
+                    on: {
+                      'click': this.next.bind(this)
+                    }
+                  },
+                  ['>']
+                )]
+              ), nextChunk, lastPage]
+            )]
+          ), h(
+            'div',
+            { 'class': 'VuePagination__dropdownPagination' },
+            [PagingLimit]
+          )]
         ), h(
           'p',
           {

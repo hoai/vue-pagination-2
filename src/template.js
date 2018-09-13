@@ -53,9 +53,15 @@ module.exports = function() {
         </li>
       )
     }.bind(this));
-    
+
+    var PagingLimit = <div class={`${theme.pagingLimit.classes.field} ${theme.pagingLimit.classes.inline} ${theme.pagingLimit.classes.right} VueTables__limit`}>
+      {theme.pagingLimit.slots.beforeLimit}
+       {theme.pagingLimit.perpage}
+     {theme.pagingLimit.slots.afterLimit}
+     </div>;
     return <div class={`VuePagination ${theme.wrapper}`}><nav class={`${theme.nav}`}>
-    <ul v-show={this.totalPages>1}
+
+      <div class="VuePagination__left"><div class="VuePagination__pagination_list"><ul v-show={this.totalPages>1}
     class={`${theme.list} VuePagination__pagination`}>
     {firstPage}
     {prevChunk} 
@@ -75,7 +81,9 @@ module.exports = function() {
     {nextChunk}
     {lastPage}
     </ul>
-    <div class="VuePagination__dropdownPagination">{theme.dropdownPagination}</div>
+    </div>
+    <div v-show={this.totalPages>1} class="VuePagination__dropdownPagination">{PagingLimit}</div>
+      </div>
     <p v-show={parseInt(this.records)}
     class={`VuePagination__count ${theme.count}`}>{this.count}</p>
     </nav>
