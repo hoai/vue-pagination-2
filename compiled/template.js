@@ -163,7 +163,12 @@ module.exports = function () {
             )]
           ), h(
             'div',
-            { 'class': 'VuePagination__dropdownPagination' },
+            {
+              directives: [{
+                name: 'show',
+                value: this.totalPages > 1
+              }],
+              'class': 'VuePagination__dropdownPagination' },
             [PagingLimit]
           )]
         ), h(

@@ -82,7 +82,7 @@ module.exports = function() {
     {lastPage}
     </ul>
     </div>
-    <div v-show={this.totalPages>1} class="VuePagination__dropdownPagination">{PagingLimit}</div>
+    <div v-show={this.totalPages>0} class="VuePagination__dropdownPagination">{PagingLimit}</div>
       </div>
     <p v-show={parseInt(this.records)}
     class={`VuePagination__count ${theme.count}`}>{this.count}</p>
