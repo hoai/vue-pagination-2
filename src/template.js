@@ -61,7 +61,7 @@ module.exports = function() {
      </div>;
     return <div class={`VuePagination ${theme.wrapper}`}><nav class={`${theme.nav}`}>
 
-      <div class="VuePagination__left"><div class="VuePagination__pagination_list"><ul v-show={this.totalPages>1}
+      <div class="VuePagination__left"><div class="VuePagination__pagination_list"><ul v-show={this.totalPages>0}
     class={`${theme.list} VuePagination__pagination`}>
     {firstPage}
     {prevChunk} 
