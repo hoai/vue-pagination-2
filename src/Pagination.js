@@ -51,7 +51,12 @@ module.exports = {
   data: function() {
     return  {
       Page:1,
-      firstPage:1
+      firstPage:1,
+      showFirstDots: false,
+      showLastDots: false,
+      firstNumber: true,
+      lastNumber: true,
+      limit: 5,
     }
   },
   computed: {
@@ -80,10 +85,68 @@ module.exports = {
       return this.vuex?this.$store.state[this.for].page:this.Page;
     },
     pages: function() {
-      if (!this.records)
-      return [];
+      if (!this.records) return [];
+      this.showFirstDots = false
+      this.showLastDots = false
+      let numberOfLinks = this.limit
+      let startNumber = 1
+      let currentPage = this.page
+      let numberOfPages = this.totalPages
+      const ELLIPSIS_THRESHOLD = 3
       
-      return range(this.paginationStart, this.pagesInCurrentChunk);
+      if (numberOfPages <= this.limit) {
+        numberOfLinks = this.totalPages
+      } else if (currentPage < this.limit - 1 && this.limit > ELLIPSIS_THRESHOLD) {
+        if (this.lastNumber) {
+          this.showLastDots = true
+          numberOfLinks = this.limit - (this.firstNumber ? 0 : 1)
+        }
+        numberOfLinks = Math.min(numberOfLinks, this.limit)
+      } else if (numberOfPages - currentPage + 2 < this.limit && this.limit > ELLIPSIS_THRESHOLD) {
+        if (this.firstNumber) {
+          this.showFirstDots = true
+          numberOfLinks = this.limit - (this.lastNumber ? 0 : 1)
+        }
+        startNumber = numberOfPages - numberOfLinks + 1
+      } else {
+        if (this.limit > ELLIPSIS_THRESHOLD) {
+          numberOfLinks = this.limit - 2
+          this.showFirstDots = this.firstNumber
+          this.showLastDots = this.lastNumber
+        }
+        startNumber = currentPage - Math.floor(numberOfLinks / 2)
+      }
+      
+      if (startNumber < 1) {
+        startNumber = 1
+        this.showFirstDots = false
+      } else if (startNumber > numberOfPages - numberOfLinks) {
+        startNumber = numberOfPages - numberOfLinks + 1
+        this.showLastDots = false
+      }
+      
+      if (this.showFirstDots && this.firstNumber && startNumber < 4) {
+        numberOfLinks = numberOfLinks + 2
+        startNumber = 1
+        this.showFirstDots = false
+      }
+      const lastPageNumber = startNumber + numberOfLinks - 1
+      if (this.showLastDots && this.lastNumber && lastPageNumber > numberOfPages - 3) {
+        numberOfLinks = numberOfLinks + (lastPageNumber === numberOfPages - 2 ? 2 : 3)
+        this.showLastDots = false
+      }
+      // Special handling for lower limits (where ellipsis are never shown)
+      if (this.limit <= ELLIPSIS_THRESHOLD) {
+        if (this.firstNumber && startNumber === 1) {
+          numberOfLinks = Math.min(numberOfLinks + 1, numberOfPages, this.limit + 1)
+        } else if (this.lastNumber && numberOfPages === startNumber + numberOfLinks - 1) {
+          startNumber = Math.max(startNumber - 1, 1)
+          numberOfLinks = Math.min(numberOfPages - startNumber + 1, numberOfPages, this.limit + 1)
+        }
+      }
+      numberOfLinks = Math.min(numberOfLinks, numberOfPages - startNumber + 1)
+      
+      return range(startNumber, numberOfLinks);
     },
     totalPages: function() {
       return this.records?Math.ceil(this.records / this.perPage):1;
