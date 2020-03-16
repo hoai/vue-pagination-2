@@ -95,7 +95,7 @@ module.exports = function () {
 
     var firstItemPage = this.firstNumber && pageNumbers[0] !== 1 ? makePageButton(1) : h();
 
-    var lastItemPage = this.lastNumber && pageNumbers[pageNumbers.length - 1] !== this.totalPages ? makePageButton(this.totalPages) : h();
+    var lastItemPage = this.lastNumber && pageNumbers[pageNumbers.length - 1] !== this.totalPages && this.totalPages > 1 ? makePageButton(this.totalPages) : h();
 
     var firstEllipsis = this.showFirstDots ? makeEllipsis(false) : h();
 
